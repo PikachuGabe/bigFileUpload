@@ -4,11 +4,31 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import { ConnectSrc, CspPolicies } from "@main/csp";
 import { IpcMainInvokeEvent } from "electron";
 
 import { NativeUploadResult, NestUploadResponse } from "./types";
 
 let uploadProgress = { loaded: 0, total: 0 };
+
+// Add domains used by this plugin to the CSP policies
+CspPolicies["nest.rip"] = ConnectSrc;
+CspPolicies["api.e-z.host"] = ConnectSrc;
+CspPolicies["0x0.st"] = ConnectSrc;
+CspPolicies["catbox.moe"] = ConnectSrc;
+CspPolicies["litterbox.catbox.moe"] = ConnectSrc;
+CspPolicies["upload.gofile.io"] = ConnectSrc;
+CspPolicies["gofile.io"] = ConnectSrc;
+CspPolicies["tmpfiles.org"] = ConnectSrc;
+CspPolicies["w.buzzheavier.com"] = ConnectSrc;
+CspPolicies["buzzheavier.com"] = ConnectSrc;
+CspPolicies["temp.sh"] = ConnectSrc;
+CspPolicies["filebin.net"] = ConnectSrc;
+CspPolicies["pixelvault.co"] = ConnectSrc;
+CspPolicies["pixeldrain.com"] = ConnectSrc;
+CspPolicies["encrypting.host"] = ConnectSrc;
+CspPolicies["cors.keiran0.workers.dev"] = ConnectSrc; // CORS proxy
+CspPolicies["discord.nfp.is"] = ConnectSrc; // alternative CORS proxy?
 
 export async function getUploadProgress(_: IpcMainInvokeEvent): Promise<{ loaded: number; total: number; }> {
     return uploadProgress;
